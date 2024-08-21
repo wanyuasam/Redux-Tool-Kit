@@ -1,9 +1,7 @@
 import React from 'react'
 import CardItem from './CardItem'
 import { useSelector, useDispatch } from 'react-redux'
-// import { clearCart } from '../features/cart/cartSlice'
 import { openModal } from '../features/modal/modalSlice'
-import { clearCart } from '../features/cart/cartSlice'
 
 
 export default function CardContainer() {
@@ -44,7 +42,6 @@ export default function CardContainer() {
             <button className='btn clear-btn' onClick={() => {
                 console.log('Clear Wishlist button clicked');
                 dispatch(openModal())
-                // dispatch(clearCart())
                 }}
                 >Clear Wishlist</button>
         </footer>
