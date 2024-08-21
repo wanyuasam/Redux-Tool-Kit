@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cartItems from '../../cartItems'
 import axios from "axios";
 
-const url = 'https://course-api.com/react-useReducer-cart-project';
+const url = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://course-api.com/react-useReducer-cart-project');
 
 const initialState ={
     cartItems: cartItems,
@@ -56,16 +56,30 @@ const cartSlice = createSlice({
             state.total =total
         }
     },
-    extraReducers: (builders){
+    extraReducers: (builders) => {
         builders
         .addCase(getCartItems.pending, (state) => {
             state.isLoading = true
         })
         .addCase(getCartItems.fulfilled, (state, action) => {
+            // Log the API response to verify its structure
+            console.log('API Response:', action.payload);
+        
+            // Extract the contents and parse it
+            const contents = action.payload.contents;
+            let cartItems = [];
+            
+            try {
+                cartItems = JSON.parse(contents); // Parse the JSON string into an array
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        
+            // Update the state with the parsed array
+            state.cartItems = cartItems;
+            state.amount = cartItems.length;
+            state.total = cartItems.reduce((sum, item) => sum + parseFloat(item.price) * item.amount, 0);
             state.isLoading = false;
-            state.cartItems = action.payload
-            state.amount = action.payload.length
-            state.total = action.payload.reduce((sum, item) => sum + item.price * item.amount, 0)
         })
         .addCase(getCartItems.rejected, (state) => {
             state.isLoading = false
