@@ -15,7 +15,10 @@ function Modal() {
               dispatch(closeModal())
               }}
               >Confirm</button>
-            <button type='button' className='btn clear-btn' onClick={() => dispatch(closeModal())}>Cancel</button>
+            <button type='button' className='btn clear-btn' onClick={() => {
+              // console.log('THis will close')
+              dispatch(closeModal())
+              }}>Cancel</button>
           </div>
         </div>
     </aside>
