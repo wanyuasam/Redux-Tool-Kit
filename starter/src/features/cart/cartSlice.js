@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cartItems from '../../cartItems'
 import axios from "axios";
-
+// to solve CORS error
 const url = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://course-api.com/react-useReducer-cart-project');
 
 const initialState ={
